@@ -1,7 +1,7 @@
 from pydantic.main import BaseModel
 
 
-class RegisterUserForm(BaseModel):
+class UserAccountForm(BaseModel):
     email: str
     password: str
 
@@ -14,6 +14,8 @@ class RegisterUserForm(BaseModel):
         }
 
 
-class LoginForm(BaseModel):
+class LoginResponseForm(BaseModel):
     email: str
-    password: str
+    access_token: str
+    refresh_token: str
+
