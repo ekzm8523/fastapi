@@ -29,7 +29,7 @@ JWT_AUTH = {
     'JWT_LEEWAY': 0,
     'JWT_EXPIRATION_DELTA': timedelta(hours=24),  # timedelta(minutes=1),
     'JWT_AUDIENCE': None,
-    'JWT_ISSUER': 'NIPA',
+    'JWT_ISSUER': 'Jack',
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=30),  # timedelta(minutes=1),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
