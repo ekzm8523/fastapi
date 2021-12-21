@@ -1,23 +1,12 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session, Session
-from sqlalchemy.ext.declarative import as_declarative, declared_attr
-from typing import Any, Callable
+from typing import Callable
 from contextlib import contextmanager, AbstractContextManager
-import re
+from app.models import Base
 import logging
 
 logger = logging.getLogger(__name__)
-
-@as_declarative()
-class Base:
-    id: Any
-    __name__: str
-
-    @declared_attr
-    def __tablename__(cls) -> str:
-        return f"{'_'.join(list(map(str.lower, re.findall('([A-Z][a-z]+)', cls.__name__))))}"
-
 
 class Database:
 
