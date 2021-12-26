@@ -5,6 +5,7 @@ from typing import Callable
 from contextlib import contextmanager, AbstractContextManager
 from app.models import Base
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -31,3 +32,8 @@ class Database:
             raise
         finally:
             session.close()
+
+
+
+
+

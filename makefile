@@ -2,9 +2,9 @@ EXPORT = export PYTHONPATH=$(PWD)
 
 db:
 	psql -c "DROP DATABASE IF EXISTS mms"
-	#psql -c "DROP ROLE IF EXISTS mms_admin"
-	#psql -c "CREATE USER mms_admin WITH SUPERUSER PASSWORD '12345'"
-	psql -c "CREATE DATABASE harmony_product OWNER mms_admin"
+	psql -c "DROP ROLE IF EXISTS mms_admin"
+	psql -c "CREATE USER mms_admin WITH SUPERUSER PASSWORD '12345'"
+	psql -c "CREATE DATABASE mms OWNER mms_admin"
 
 db_test:
 	psql -c "DROP DATABASE IF EXISTS mms_test"
