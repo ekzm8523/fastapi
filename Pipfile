@@ -1,0 +1,47 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+flake8 = "*"
+isort = "*"
+mypy = "*"
+coverage = "*"
+locust = "*"
+rope = "*"
+factory-boy = "*"
+Faker = "*"
+autoflake = "*"
+pytest = "*"
+sqlalchemy-stubs = "*"
+pytest-cov = "*"
+black = "==21.11b1"
+
+[packages]
+alembic = "==1.7.4"
+boto3 = "==1.18.62"
+celery = "==5.1.2"
+email-validator = "==1.1.3"
+emails = "==0.6.0"
+fastapi = "==0.70.0"
+gunicorn = "==20.1.0"
+passlib = {extras = ["bcrypt"], version = "1.7.4"}
+psycopg2-binary = "==2.9.1"
+pydantic = {extras = ["dotenv"], version = "1.8.2"}
+pyjwt = "==2.1.0"
+pytest = "==6.2.5"
+python-jose = {extras = ["cryptography"], version = "3.3.0"}
+python-multipart = "==0.0.5"
+requests = "==2.26.0"
+sqlalchemy2-stubs = "==0.0.2a19"
+sqlalchemy = {extras = ["mypy"], version = "==1.4.27"}
+tenacity = "==8.0.1"
+uvicorn = "==0.15.0"
+pytest-dotenv = "==0.5.2"
+mock-alchemy = "==0.2.5"
+fastapi_utils = "==0.2.1"
+dependency-injector = "*"
+
+[requires]
+python_version = "3.9"
