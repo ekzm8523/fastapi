@@ -4,20 +4,21 @@ import uvicorn
 from pydantic import BaseModel
 from app.container import ApplicationContainer
 from app.database import Database
+import sys
+
+def create_app() -> FastAPI:
+    container = ApplicationContainer()
+    container.wire([sys.modules[__name__]])
+    db = Database(db_url="")
+    db.create_database()
+
+    app = FastAPI()
+    app.container = container
+    app.include_router(...)
+    return app
 
 
-# def create_app() -> FastAPI:
-#     container = ApplicationContainer()
-#     db = Database(db_url="")
-#     db.create_database()
-#
-#     app = FastAPI()
-#     app.container = container
-#     app.include_router(...)
-#     return app
-
-
-app = FastAPI()
+app: FastAPI = create_app()
 
 
 class Item(BaseModel):
@@ -38,7 +39,6 @@ class Item(BaseModel):
 #     return {"item_price": item.price, "item_id": item_id}
 
 if __name__ == '__main__':
-
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 
 

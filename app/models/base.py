@@ -32,6 +32,8 @@ class TimestampMixin:
 
 
 class AbstractBase(Base, TimestampMixin):
+    __abstract__ = True
+
     id: Union[UUID, sa.Column] = sa.Column(postgresql.UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
 
 

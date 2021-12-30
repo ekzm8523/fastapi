@@ -5,12 +5,12 @@ from typing import Callable
 from contextlib import contextmanager, AbstractContextManager
 from app.models import Base
 import logging
-import os
+
 
 logger = logging.getLogger(__name__)
 
-class Database:
 
+class Database:
     def __init__(self, db_url: str) -> None:
         self._engine = create_engine(db_url)
         self._session_factory = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=self._engine))
@@ -32,8 +32,3 @@ class Database:
             raise
         finally:
             session.close()
-
-
-
-
-
