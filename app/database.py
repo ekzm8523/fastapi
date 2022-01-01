@@ -15,14 +15,18 @@ class Database:
         self._engine = create_engine(db_url)
         self._session_factory = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=self._engine))
 
-    def create_database(self) -> None:
+    async def create_database(self) -> None:
         """
         create_all을 실행시 engine에 연결된 DB에 Base를 상속받은 테이블들이 생성됩니다.
         """
         Base.metadata.create_all(bind=self._engine)
 
+    async def delete_database(self) -> None:
+        Base.metadata.drop_all(bind=self._engine)  # drop database
+        self._engine.dispost()  # engine close
+
     @contextmanager
-    def session(self) -> Callable[..., AbstractContextManager[Session]]:
+    async def get_session(self) -> Callable[..., AbstractContextManager[Session]]:
         session: Session = self._session_factory()
         try:
             yield session
@@ -32,3 +36,4 @@ class Database:
             raise
         finally:
             session.close()
+

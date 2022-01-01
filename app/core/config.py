@@ -10,3 +10,13 @@ class DatabaseSettings(BaseSettings):
 
     def get_url(self):
         return f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.db}"
+
+
+class JWTSettings(BaseSettings):
+    ...
+
+
+class ApplicationSettings(BaseSettings):
+    db: DatabaseSettings = DatabaseSettings()
+    stage: str = Field(default="local", env="STAGE")
+    jwt: JWTSettings = JWTSettings()
