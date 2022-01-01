@@ -23,7 +23,6 @@ class Database:
 
     async def delete_database(self) -> None:
         Base.metadata.drop_all(bind=self._engine)  # drop database
-        self._engine.dispost()  # engine close
 
     @contextmanager
     async def get_session(self) -> Callable[..., AbstractContextManager[Session]]:
@@ -36,4 +35,3 @@ class Database:
             raise
         finally:
             session.close()
-

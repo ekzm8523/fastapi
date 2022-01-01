@@ -19,4 +19,5 @@ class JWTSettings(BaseSettings):
 class ApplicationSettings(BaseSettings):
     db: DatabaseSettings = DatabaseSettings()
     stage: str = Field(default="local", env="STAGE")
+    service_name: str = Field(default="/mms", env="SERVICE_NAME")
     jwt: JWTSettings = JWTSettings()

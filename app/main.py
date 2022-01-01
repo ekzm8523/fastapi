@@ -1,31 +1,25 @@
-from typing import Optional
-from fastapi import FastAPI
 import uvicorn
-from pydantic import BaseModel
+from app.container import ApplicationContainer
 
-from app.core.config import ApplicationSettings
-from app.database import Database
-
-
-app: FastAPI = FastAPI()
+container: ApplicationContainer = ApplicationContainer()
 
 
-@app.on_event('startup')
+@container.app.on_event('startup')
 async def startup_event():
     print("start up fastapi")
-    app.settings = ApplicationSettings()
-    app.db = Database(db_url=app.settings.db.get_url())
-    await app.db.create_database()
+    from app.api.router import main_router
+    container.app.include_router(main_router, prefix=container.settings.service_name)
+    await container.db.create_database()
 
 
-@app.on_event('shutdown')
+@container.app.on_event('shutdown')
 async def shutdown_event():
     print("delete database complete")
-    await app.db.delete_database()
+    await container.db.delete_database()
 
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:container.app", host="0.0.0.0", port=8000, reload=True)
 
 
 
