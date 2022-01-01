@@ -37,7 +37,7 @@ requests = "==2.26.0"
 sqlalchemy2-stubs = "==0.0.2a19"
 sqlalchemy = {extras = ["mypy"], version = "==1.4.27"}
 tenacity = "==8.0.1"
-uvicorn = "==0.15.0"
+uvicorn = "==0.14.0"
 pytest-dotenv = "==0.5.2"
 mock-alchemy = "==0.2.5"
 fastapi_utils = "==0.2.1"

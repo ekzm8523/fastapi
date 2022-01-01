@@ -19,12 +19,14 @@ class Database:
         """
         create_all을 실행시 engine에 연결된 DB에 Base를 상속받은 테이블들이 생성됩니다.
         """
+        print("create db")
         Base.metadata.create_all(bind=self._engine)
 
     async def delete_database(self) -> None:
         Base.metadata.drop_all(bind=self._engine)  # drop database
+        self._engine.dispose()
 
-    @contextmanager
+    # @contextmanager
     async def get_session(self) -> Callable[..., AbstractContextManager[Session]]:
         session: Session = self._session_factory()
         try:
