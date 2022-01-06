@@ -17,7 +17,7 @@ class Base:
 
     @declared_attr
     def __tablename__(cls) -> str:
-        return f"{'_'.join(list(map(str.lower, re.findall('([A-Z][a-z]+)', cls.__name__))))}"
+        return f"mms_{'_'.join(list(map(str.lower, re.findall('([A-Z][a-z]+)', cls.__name__))))}"
 
 
 @declarative_mixin

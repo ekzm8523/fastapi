@@ -5,6 +5,8 @@ from app.models import AbstractBase
 
 
 class User(AbstractBase):
+    __abstract__ = True
+
     name: str = sa.Column(sa.String(length=30), nullable=False)
     email: str = sa.Column(sa.String(length=50), nullable=False)
     password: str = sa.Column(sa.String(length=30), nullable=False)
@@ -19,3 +21,4 @@ class Admin(User):
 class Customer(User):
     birthday: str = sa.Column(sa.String(length=30), nullable=False)
     address: dict[str, str] = sa.Column(MutableDict.as_mutable(postgresql.JSONB), nullable=False)
+    point: int = sa.Column(sa.Integer, default=0)

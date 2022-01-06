@@ -1,0 +1,6 @@
+Generic single-database configuration.
+
+
+Migration script Auto generation : alembic revision --autogenerate -m "initial migration"
+Upgrade : alembic upgrade [revision_hash] or head
+Downgrade : alembic downgrade [revision_hash]
