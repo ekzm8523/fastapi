@@ -1,31 +1,24 @@
 import asyncio
 import time
+import anyio
 
-async def say_after(delay, what):
-    print("wait...")
-    await asyncio.sleep(delay)
-    print(what)
+from anyio import Event, create_task_group, run, sleep
+
+
+async def task(event: Event, number: int):
+    print('Task', number, 'is waiting')
+    await event.wait()
+    print('Task', number, 'finished')
+
 
 async def main():
-    print(f"started at {time.strftime('%X')}")
+    event = Event()
+    async with create_task_group() as tg:
+        for i in range(100):
+            tg.start_soon(task, event, i)
 
-    await say_after(3, 'wait three second 1')
-    await say_after(3, 'wait three second 2')
-    await say_after(3, 'wait three second 3')
-    # -> worker가 하나
-    print(f"finished at {time.strftime('%X')}")
-
-    task1 = asyncio.create_task(say_after(3, 'wait three second 1'))
-    task2 = asyncio.create_task(say_after(3, 'wait three second 2'))
-    task3 = asyncio.create_task(say_after(3, 'wait three second 3'))
-    print(f"started at {time.strftime('%X')}")
-
-    await task1
-    await task2
-    await task3
-    # worker가 3개
-    print(f"finished at {time.strftime('%X')}")
-
-
+        await sleep(1)
+        await event.set()
+    print(event)
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main)
