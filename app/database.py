@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine, Connection
 from sqlalchemy.orm import sessionmaker, Session
 from typing import Callable
-from contextlib import AbstractContextManager
+from contextlib import AbstractContextManager, contextmanager
 from app.models import Base
 import logging
 
@@ -34,7 +34,7 @@ class Database:
         Base.metadata.drop_all(bind=self._engine)  # drop database
         self._engine.dispose()
 
-    # @contextmanager
+    @contextmanager
     async def get_session(self) -> Callable[..., AbstractContextManager[Session]]:
         session: Session = self._session_factory()
         try:
@@ -66,3 +66,6 @@ class Database:
             conn.execute("commit")
             self._engine.dispose()  # testing DB engine 반납
             conn.execute(f"drop database {self.db_name}")
+
+    def get_session_factory(self):
+        return self._session_factory
