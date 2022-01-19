@@ -1,3 +1,4 @@
+from asyncio import get_event_loop
 from typing import Generator, AsyncIterable
 
 from sqlalchemy import create_engine
@@ -8,6 +9,13 @@ import pytest
 
 import os
 os.environ["STAGE"] = "testing"
+
+
+@pytest.fixture(scope="session")
+def event_loop():
+    loop = get_event_loop()
+    yield loop
+    loop.close()
 
 
 @pytest.fixture(scope="session")

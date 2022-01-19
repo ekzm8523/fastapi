@@ -32,7 +32,6 @@ class Database:
 
     async def delete_database(self) -> None:
         Base.metadata.drop_all(bind=self._engine)  # drop database
-        self._engine.dispose()
 
     @contextmanager
     async def get_session(self) -> Callable[..., AbstractContextManager[Session]]:
@@ -64,7 +63,7 @@ class Database:
     def low_level_delete_database(self):  # 어쩔수 없이 끝나고 호출해야 하므로 protect underbar 제거
         with self.get_connection() as conn:
             conn.execute("commit")
-            self._engine.dispose()  # testing DB engine 반납
+            self._engine.dispose()
             conn.execute(f"drop database {self.db_name}")
 
     def get_session_factory(self):
