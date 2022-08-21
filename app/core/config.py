@@ -1,4 +1,6 @@
 from pydantic import BaseSettings, Field
+from pathlib import Path
+import os
 
 
 class DatabaseSettings(BaseSettings):
@@ -16,8 +18,27 @@ class JWTSettings(BaseSettings):
     ...
 
 
+class GithubOAuthSettings(BaseSettings):
+    client_id: str = Field(env="GITHUB_OAUTH_CLIENT_ID")
+    client_secret: str = Field(env="GITHUB_OAUTH_CLIENT_SECRET")
+
+    class Config:
+        env_file = os.path.join(os.path.dirname(Path(".").resolve()), '.env')
+
+
+class GoogleOAuthSettings(BaseSettings):
+    client_id: str = Field(env="GOOGLE_OAUTH_CLIENT_ID")
+    client_secret: str = Field(env="GOOGLE_OAUTH_CLIENT_SECRET")
+
+    class Config:
+        env_file = os.path.join(os.path.dirname(Path(".").resolve()), '.env')
+
+
 class ApplicationSettings(BaseSettings):
     db: DatabaseSettings = DatabaseSettings()
     stage: str = Field(default="local", env="STAGE")
     service_name: str = Field(default="/mms", env="SERVICE_NAME")
     jwt: JWTSettings = JWTSettings()
+    github: GithubOAuthSettings = GithubOAuthSettings()
+    google: GoogleOAuthSettings = GoogleOAuthSettings()
+
